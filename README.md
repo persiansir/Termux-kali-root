@@ -20,10 +20,11 @@ justroot
 
 git clone https://github.com/persiansir/Termux-kali-root
             
-              > cd RootMe 
-            
+              > ls
+              > cd Termux-kali-root 
+              > ls
               > chmod 777 rootme.sh
-            
+              > ls
               > bash rootme.sh  
 
 choose your type of install
