@@ -1,88 +1,43 @@
-#! /data/data/com.termux/files/usr/bin/bash
-clear
-echo "  _____              _ _      "
-echo " |  __ \            ( ) |     "
-echo " | |  | | ___  _ __ |/| |_    "
-echo " | |  | |/ _ \| '_ \  | __|   "
-echo " | |__| | (_) | | | | | |_    "
-echo " |_____/ \___/|_| |_|  \__|   "
-echo
-echo
-echo "  ____                                "
-echo " |  _ \                               "
-echo " | |_) | ___     ______     _ _       "
-echo " |  _ < / _ \   |  ____|   (_) |      "
-echo " | |_) |  __/   | |____   ___| |      "
-echo " |____/ \___|   |  __\ \ / / | |      "
-echo "                | |___\ V /| | |      "
-echo "                |______\_/ |_|_|      "
-echo                                                        
-  read -p "Use this tool for educational purpose only press enter to continue " Enter
-echo
-clear
-echo
-echo "   [1*] Boot2Root    "
-echo "   [2*] JustRoot     "
-echo
-     
+#!/bin/bash
 
-                        echo "Version 1.1"
-
-           read -p "Enter your choice : " choice
+# به‌روزرسانی و ارتقای لیست بسته‌ها
 apt update && apt upgrade -y
-apt install wget -y
-apt install openssl-tool -y
-apt install proot -y
-apt install bash -y
-apt install nano -y
-apt install neofetch -y
+
+# نصب بسته‌های مورد نیاز
+PACKAGES="wget openssl-tool proot bash nano neofetch"
+apt install $PACKAGES -y
+
+# پیکربندی ذخیره‌سازی Termux
 termux-setup-storage
+
+# ایجاد یک نسخه‌ی پشتیبان از bash.bashrc
 cd /data/data/com.termux/files/usr/etc/
 cp bash.bashrc bash.bashrc.bak
-mkdir /data/data/com.termux/files/usr/etc/Root
+
+# دانلود و اجرای اسکریپت نصب Kali Linux
 cd /data/data/com.termux/files/usr/etc/Root
-wget  https://raw.githubusercontent.com/EXALAB/AnLinux-Resources/master/Scripts/Installer/Kali/kali.sh
+wget https://raw.githubusercontent.com/EXALAB/AnLinux-Resources/master/Scripts/Installer/Kali/kali.sh
 bash kali.sh
-echo $Enter
-clear    
-          neofetch
-echo
-          if [ "$choice" = "1" ];
-          then
-          echo " bash /data/data/com.termux/files/usr/etc/Root/start-kali.sh " >> /data/data/com.termux/files/usr/etc/bash.bashrc
-          echo
-          echo "Restart your termux to become root user "
-          elif [ "$choice" = "2" ];
-          then
-          echo " alias rootme='bash /data/data/com.termux/files/usr/etc/Root/start-kali.sh' " >> /data/data/com.termux/files/usr/etc/bash.bashrc
-          cd /data/data/com.termux/files/usr/etc
-          source bash.bashrc
-          echo 
-          echo "Restart your termux and type  rootme  from anywhere of your termux to become root user "
-          else
-echo                                             
-echo "   ___   ___  _ __  ___  "
-echo "  / _ \ / _ \| '_ \/ __| "
-echo " | (_) | (_) | |_) \__ \ "
-echo "  \___/ \___/| .__/|___/ "
-echo "             | |         "
-echo "             |_|         "
-echo  
-echo "unexpected error occured choose right one to install or tryagain "
-          exit
-          fi
-          echo
-          echo "Root credits to TermuxHackz"
-          echo "Tool created by AnonyminHack5 "
-          
-          echo
-          echo "contact me on :"
-          echo "Facebook  : @AnonymimHack5 "
-          echo "Instagram : @nil "
-          echo "Twitter   : @AnonyminHack5 "
-echo
-echo
-          echo "Youtube : Gamerlinks "
-          echo "https://www.youtube.com/channel/UC4BpyO4AIcynKhBj4PLnvsA "
-          
-          echo "Happy hacking :-)"
+
+# پیکربندی سیستم بر اساس انتخاب کاربر
+read -p "لطفاً انتخاب خود را وارد کنید (۱ برای Boot2Root یا ۲ برای JustRoot): " choice
+
+case $choice in
+  1)
+    # اگر کاربر انتخاب ۱ (Boot2Root) را وارد کند، این قسمت از اسکریپت یک خط را به فایل bash.bashrc اضافه می‌کند تا اسکریپت start-kali.sh در هنگام بوت اجرا شود.
+    echo "bash /data/data/com.termux/files/usr/etc/Root/start-kali.sh" >> /data/data/com.termux/files/usr/etc/bash.bashrc
+    echo "لطفاً Termux را مجدداً راه‌اندازی کنید تا به عنوان کاربر ریشه وارد شوید"
+    ;;
+  2)
+    # اگر کاربر انتخاب ۲ (JustRoot) را وارد کند، این قسمت از اسکریپت یک alias را به فایل bash.bashrc اضافه می‌کند تا اسکریپت start-kali.sh با دستور rootme اجرا شود.
+    echo "alias rootme='bash /data/data/com.termux/files/usr/etc/Root/start-kali.sh'" >> /data/data/com.termux/files/usr/etc/bash.bashrc
+    cd /data/data/com.termux/files/usr/etc
+    source bash.bashrc
+    echo "لطفاً Termux را مجدداً راه‌اندازی کنید و دستور rootme را وارد کنید تا به عنوان کاربر ریشه وارد شوید"
+    ;;
+  *)
+    # اگر کاربر انتخابی را وارد نکند، این قسمت از اسکریپت یک پیام خطا را نمایش می‌دهد.
+    echo "انتخاب نامعتبر است. لطفاً دوباره تلاش کنید."
+    exit
+    ;;
+esac
