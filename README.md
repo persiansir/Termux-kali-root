@@ -18,7 +18,7 @@ justroot
 ╚█████╔╝╚██████╔╝███████║   ██║       ██║  ██║╚██████╔╝╚██████╔╝   ██║   
  ╚════╝  ╚═════╝ ╚══════╝   ╚═╝       ╚═╝  ╚═╝ ╚═════╝  ╚═════╝    ╚═╝  
 
-> git clone https://github.com/TermuxHackz/RootMe
+git clone https://github.com/persiansir/Termux-kali-root
             
               > cd RootMe 
             
